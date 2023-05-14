@@ -9,7 +9,7 @@ const router = express.Router();
 //adding our routes
 
 router.get('/', getPosts);
-router.get('/', createPost);
+router.post('/', createPost);
 
 //exporting 
 export default router;
