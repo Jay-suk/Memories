@@ -1,3 +1,4 @@
+//files imported -- posts.js and form.js from components , getPosts method from /actions/posts
 import React ,{ useEffect } from "react";
 //importing material-ui stuff for styling
 import { Container, AppBar, Typography, Grow, Grid } from '@material-ui/core';
@@ -6,7 +7,7 @@ import { useDispatch } from 'react-redux';
 //importing the Posts and Form component
 import Posts from './components/Posts/Posts';
 import Form from './components/Form/Form';
-
+//importing getPosts method
 import { getPosts } from './actions/posts'
 
 //image import
@@ -19,9 +20,11 @@ const App = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
+  //dispatch(getPosts()) whenever there is a change in [dispatch](change in redux store)
   useEffect( () => {
     dispatch(getPosts());
   }, [dispatch]);
+  
   return (
     <Container maxWidth="lg">
       <AppBar className={classes.appBar} position="static" color="inherit">
@@ -44,5 +47,5 @@ const App = () => {
   );
 };
 
-//exporting this component as default
+//exporting this component as default to index.js
 export default App;

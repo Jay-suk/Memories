@@ -1,3 +1,4 @@
+//files imported -- post method form /post/post.js
 //this component is for displaying all posts
 import React from 'react';
 

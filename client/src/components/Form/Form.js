@@ -1,3 +1,4 @@
+//files imported -- createPost method from action/posts.js
 //form component
 import React, { useState } from 'react';
 
@@ -12,6 +13,8 @@ import { createPost } from '../../actions/posts';
 
 
 const Form = () =>{
+    //initializing and managing the state object postData using useState
+    //setPostData -- to change the state
     const [postData, setPostData] = useState({
         creator: '',
         title: '',
@@ -19,17 +22,22 @@ const Form = () =>{
         tags: '',
         selectedFile: ''
     });
+    
     const classes = useStyles();
+    //dispatch function is accessed
     const dispatch = useDispatch();
+
+    //when we click the submit button to create a new post
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         dispatch(createPost(postData));
     };
-    
+    //to clear the response in the create post form
     const clear =() => {
     
     };
+
     return(
         <Paper className={classes.paper}>
             <form autoComplete="off" noValidate className={'${classes.root} ${classes.form}'} onSubmit={handleSubmit}> 
@@ -66,7 +74,7 @@ const Form = () =>{
                  value={postData.tags}
                  onChange={(e) => setPostData({ ...postData, tags: e.target.value })}
                  />
-
+                //for adding file
                  <div className={classes.fileInput}>
                     <FileBase
                         type="file"

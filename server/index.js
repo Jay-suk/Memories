@@ -24,7 +24,7 @@ app.use('/posts',postRoutes);
 const CONNECTION_URL = 'mongodb+srv://jaykumargupta2307:Ggambhir83@cluster0.zap9js3.mongodb.net/?retryWrites=true&w=majority';
 
 //port at which our server runs
-const PORT =  5000;
+const PORT =  process.env.PORT || 5000;
 
 //connecting database to our application
 //and if this promise is fullfilled we listen on port PORT 

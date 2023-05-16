@@ -3,6 +3,8 @@ import * as api from '../api/index.js';
 
 //Action Creators -- functions that return action
 //action is an object with type and a payload
+
+//asynchronous action creator
 export const getPosts = () => async (dispatch) => {
     try {
         const { data } = await api.fetchPosts();
