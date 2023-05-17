@@ -20,6 +20,10 @@ app.use("/posts", postRoutes);
 //link to connect to database
 //const CONNECTION_URL = 'mongodb+srv://jaykumargupta2307:Ggambhir83@cluster0.zap9js3.mongodb.net/?retryWrites=true&w=majority';
 
+app.get('/', (req,res) => {
+  res.send('Hello to Memories API');
+});
+
 //port at which our server runs
 const PORT = process.env.PORT || 5000;
 
