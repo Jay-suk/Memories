@@ -1,4 +1,5 @@
 //callback function for get method (in posts.js of routes) is defined here
+import mongoose from 'mongoose';
 import PostMessage from '../models/postMessage.js';
 
 //callback functions for our get methods
@@ -29,4 +30,49 @@ export const createPost = async (req,res) => {
     } catch (error) {
         res.status(409).json({ message: error.message });
     }
+}
+
+
+//for updating post
+export const updatePost = async (req,res) => {
+    const { id: _id } = req.params;
+    //request is coming from frontend
+    const post = req.body;
+
+    if(!mongoose.Types.ObjectId.isValid(_id))
+    {
+        return res.status(404).send('No post with that id');
+    }
+
+    const updatedPost = await PostMessage.findByIdAndUpdate(_id, { ...post, _id }, { new: true });
+    res.json(updatedPost);
+}
+
+//for deleting post
+export const deletePost = async(req,res) => {
+    const { id } = req.params;
+
+    if(!mongoose.Types.ObjectId.isValid(id))
+    {
+        return res.status(404).send('No post with that id');
+    }
+
+    await PostMessage.findByIdAndRemove(id);
+
+    res.json({ message: 'Post deleted successfully' });
+}
+
+//for liking a post
+export const likePost = async(req,res) => {
+    const { id } = req.params;
+
+    if(!mongoose.Types.ObjectId.isValid(id))
+    {
+        return res.status(404).send('No post with that id');
+    }
+
+    const post = await PostMessage.findById(id);
+    const updatedPost = await PostMessage.findByIdAndUpdate(id, { likeCount: post.likeCount + 1 }, { new: true });
+
+    res.json(updatedPost);
 }

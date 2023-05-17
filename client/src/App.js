@@ -1,5 +1,5 @@
 //files imported -- posts.js and form.js from components , getPosts method from /actions/posts
-import React ,{ useEffect } from "react";
+import React , { useState, useEffect } from "react";
 //importing material-ui stuff for styling
 import { Container, AppBar, Typography, Grow, Grid } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
@@ -17,13 +17,15 @@ import useStyles from './styles';
 
 //layout of our app with material-ui styling
 const App = () => {
+
+  const [currentId, setCurrentId] = useState(null);
   const classes = useStyles();
   const dispatch = useDispatch();
 
   //dispatch(getPosts()) whenever there is a change in [dispatch](change in redux store)
   useEffect( () => {
     dispatch(getPosts());
-  }, [dispatch]);
+  }, [currentId, dispatch]);
   
   return (
     <Container maxWidth="lg">
@@ -33,12 +35,12 @@ const App = () => {
       </AppBar>
       <Grow in>
         <Container>
-          <Grid container justifyContent="space-between" alignItems="stretch" spacing={3}>
+          <Grid className={classes.mainContainer} container justifyContent="space-between" alignItems="stretch" spacing={3}>
             <Grid item xs={12} sm={7}>
-              <Posts />
+              <Posts setCurrentId={setCurrentId} />
             </Grid>
             <Grid item xs={12} sm={4}>
-              <Form />
+              <Form currentId={currentId} setCurrentId={setCurrentId}/>
             </Grid>
           </Grid>
         </Container>

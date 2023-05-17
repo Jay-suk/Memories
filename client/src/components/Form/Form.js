@@ -1,18 +1,19 @@
 //files imported -- createPost method from action/posts.js
 //form component
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { TextField, Button, Typography, Paper } from '@material-ui/core';
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import FileBase from 'react-file-base64';
 import useStyles from './styles';
-import { createPost } from '../../actions/posts';
+import { createPost, updatePost } from '../../actions/posts';
+//import { updatePost } from '../../../../server/controllers/posts';
 
 
 
-const Form = () =>{
+const Form = ({ currentId, setCurrentId }) =>{
     //initializing and managing the state object postData using useState
     //setPostData -- to change the state
     const [postData, setPostData] = useState({
@@ -23,25 +24,42 @@ const Form = () =>{
         selectedFile: ''
     });
     
+    const post = useSelector((state) => currentId ? state.posts.find((p) => p._id === currentId): null);
     const classes = useStyles();
     //dispatch function is accessed
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        if(post) setPostData(post);
+    }, [post])
 
     //when we click the submit button to create a new post
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        dispatch(createPost(postData));
+        if(currentId){
+            dispatch(updatePost(currentId, postData));
+        } else {
+            dispatch(createPost(postData));
+        }
+        clear();
     };
     //to clear the response in the create post form
     const clear =() => {
-    
+        setCurrentId(null);
+        setPostData({
+            creator: '',
+            title: '',
+            message: '',
+            tags: '',
+            selectedFile: ''
+        });
     };
 
     return(
         <Paper className={classes.paper}>
-            <form autoComplete="off" noValidate className={'${classes.root} ${classes.form}'} onSubmit={handleSubmit}> 
-                <Typography variant="h6">Creating a Memory</Typography>
+            <form autoComplete="off" noValidate className={`${classes.root} ${classes.form}`} onSubmit={handleSubmit}> 
+                <Typography variant="h6">{currentId ? 'Editing' : 'Creating' } a Memory</Typography>
                 <TextField
                  name="creator" 
                  variant="outlined" 
@@ -72,9 +90,8 @@ const Form = () =>{
                  label="Tags" 
                  fullWidth 
                  value={postData.tags}
-                 onChange={(e) => setPostData({ ...postData, tags: e.target.value })}
+                 onChange={(e) => setPostData({ ...postData, tags: e.target.value.split(',') })}
                  />
-                //for adding file
                  <div className={classes.fileInput}>
                     <FileBase
                         type="file"

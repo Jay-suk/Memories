@@ -9,6 +9,7 @@ import thunk from 'redux-thunk';
 import reducers  from './reducers';
 //importing App component
 import App from './App';  
+import './index.css';
 
 //create a redux store and apply the thunk middleware to handle side-effects and asynchronous operation
 const store = createStore(reducers, compose(applyMiddleware(thunk)));
