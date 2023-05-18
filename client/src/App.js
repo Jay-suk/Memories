@@ -18,11 +18,13 @@ import useStyles from './styles';
 //layout of our app with material-ui styling
 const App = () => {
 
+  //adding state to App -- with id as value
   const [currentId, setCurrentId] = useState(null);
   const classes = useStyles();
   const dispatch = useDispatch();
 
-  //dispatch(getPosts()) whenever there is a change in [dispatch](change in redux store)
+  //dispatch(getPosts()) whenever there is a change in [dispatch](change in redux store) or change in id
+  //current id will change if we update a post and click submit-- value chanegs to null
   useEffect( () => {
     dispatch(getPosts());
   }, [currentId, dispatch]);

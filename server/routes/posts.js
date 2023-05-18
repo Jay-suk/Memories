@@ -2,17 +2,16 @@ import express from 'express';
 
 import { getPosts, createPost, updatePost, deletePost, likePost } from '../controllers/posts.js';
 
-//setting up router
-//we can define routes for our applications
+//setting up router so we can define routes for our applications
 const router = express.Router();
 
 //adding our routes
+//we can execute the callback function when a http request is made at the given path
 
-//get requests from this path will take callback getPosts
-//getPosts -- to get all posts from data base
+//fetch all posts from data base
 router.get('/', getPosts);
-//when user submits the form, createPost function will be called
-//createPost -- to create a new Post
+
+//create a new Post
 router.post('/', createPost);
 
 //for updating a post

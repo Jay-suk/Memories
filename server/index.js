@@ -9,12 +9,13 @@ import postRoutes from "./routes/posts.js";
 //initialize the app by creating a new instance of express application
 const app = express();
 dotenv.config();
+
 //basic setup
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 app.use(cors());
 
-//every route inside postRoutes is going to start with /posts
+//every request made at /posts will be routed to postRoutes method
 app.use("/posts", postRoutes);
 
 //link to connect to database
