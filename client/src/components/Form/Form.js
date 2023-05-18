@@ -15,7 +15,7 @@ import { createPost, updatePost } from '../../actions/posts';
 
 const Form = ({ currentId, setCurrentId }) =>{
     //initializing and managing the state object postData using useState
-    //setPostData -- to change the state
+    //setPostData -- to change the state--form(default values)
     const [postData, setPostData] = useState({
         creator: '',
         title: '',
@@ -24,11 +24,13 @@ const Form = ({ currentId, setCurrentId }) =>{
         selectedFile: ''
     });
     
+    //storing the specific post which has the same id as current id
     const post = useSelector((state) => currentId ? state.posts.find((p) => p._id === currentId): null);
+
     const classes = useStyles();
-    //dispatch function is accessed
     const dispatch = useDispatch();
 
+    //populating the form,, whenever post has a value (notNull)
     useEffect(() => {
         if(post) setPostData(post);
     }, [post])
@@ -36,7 +38,8 @@ const Form = ({ currentId, setCurrentId }) =>{
     //when we click the submit button to create a new post
     const handleSubmit = async (e) => {
         e.preventDefault();
-
+        
+        //if id exists (not null) update else create
         if(currentId){
             dispatch(updatePost(currentId, postData));
         } else {

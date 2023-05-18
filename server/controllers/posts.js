@@ -1,8 +1,7 @@
-//callback function for get method (in posts.js of routes) is defined here
+
 import mongoose from 'mongoose';
 import PostMessage from '../models/postMessage.js';
 
-//callback functions for our get methods
 
 //this method is for fetching posts from db
 export const getPosts = async (req,res) => {
@@ -36,7 +35,6 @@ export const createPost = async (req,res) => {
 //for updating post
 export const updatePost = async (req,res) => {
     const { id: _id } = req.params;
-    //request is coming from frontend
     const post = req.body;
 
     if(!mongoose.Types.ObjectId.isValid(_id))
