@@ -8,7 +8,7 @@ import Home from './components/Home/Home';
 import Auth from './components/Auth/Auth';
 
 //layout of our app with material-ui styling
-const App = () => {
+const App = () => (
   <BrowserRouter>
     <Container maxWidth="lg">
       <Navbar />
@@ -18,7 +18,7 @@ const App = () => {
       </Routes>
     </Container> 
   </BrowserRouter>
-};
+);
 
 //exporting this component as default to index.js
 export default App;
