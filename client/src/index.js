@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
+import { GoogleOAuthProvider } from "@react-oauth/google";
 
 //importing the reducers
 import reducers  from './reducers';
@@ -18,7 +19,9 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 //render the App component into the HTML element with id root
 //provider component -- to wrap the react application and provide acces to redux store
 root.render(
-    <Provider store={store}>
-        <App />
-    </Provider>
+    <GoogleOAuthProvider clientId="74316202020-t05kvfljfkjkoansmf3s4rko11c6076f.apps.googleusercontent.com">
+        <Provider store={store}>
+            <App />
+        </Provider>
+    </GoogleOAuthProvider>
     );
