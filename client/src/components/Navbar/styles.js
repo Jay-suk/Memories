@@ -36,6 +36,9 @@ export default makeStyles((theme) => ({
     display: 'flex',
     alignItems: 'center',
   },
+  logout: {
+    marginLeft: '20px',
+  },
   purple: {
     color: theme.palette.getContrastText(deepPurple[500]),
     backgroundColor: deepPurple[500],
