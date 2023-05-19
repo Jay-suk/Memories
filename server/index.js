@@ -5,6 +5,7 @@ import cors from "cors";
 import dotenv from 'dotenv';
 //importing routes from post.js
 import postRoutes from "./routes/posts.js";
+import userRoutes from "./routes/users.js";
 
 //initialize the app by creating a new instance of express application
 const app = express();
@@ -15,7 +16,8 @@ app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 app.use(cors());
 
 //every route inside postRoutes is going to start with /posts
-app.use("/posts", postRoutes);
+app.use('/posts', postRoutes);
+app.use('/user', userRoutes);
 
 //link to connect to database
 //const CONNECTION_URL = 'mongodb+srv://jaykumargupta2307:Ggambhir83@cluster0.zap9js3.mongodb.net/?retryWrites=true&w=majority';
