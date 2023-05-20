@@ -18,15 +18,6 @@ const Form = ({ currentId, setCurrentId }) =>{
         selectedFile: ''
     });
     
-<<<<<<< HEAD
-    //storing the specific post which has the same id as current id
-    const post = useSelector((state) => currentId ? state.posts.find((p) => p._id === currentId): null);
-
-    const classes = useStyles();
-    const dispatch = useDispatch();
-
-    //populating the form,, whenever post has a value (notNull)
-=======
     //finding the particular post state with id same as current id from all the posts in the state -- default value is null
     const post = useSelector((state) => currentId ? state.posts.find((p) => p._id === currentId): null);
 
@@ -35,7 +26,6 @@ const Form = ({ currentId, setCurrentId }) =>{
     const user = JSON.parse(localStorage.getItem('profile'));
     
     //whenever the selected post state changes,,, setPostData is called and populates the form field with the value relative to curentId
->>>>>>> jwt-imp
     useEffect(() => {
         if(post) setPostData(post);
     }, [post])
