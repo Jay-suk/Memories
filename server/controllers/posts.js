@@ -16,13 +16,11 @@ export const getPosts = async (req,res) => {
 
 //this method is for creating a new post
 export const createPost = async (req,res) => {
-    //saving the request in post
+    
     const post = req.body;
-    //creating the new post by adding to data base
-    const newPost = new PostMessage(post);
+    const newPost = new PostMessage({ ...post, creator: req.userId, createdAt: new Date().toISOString() });
 
     try {
-        //saving the post
         await newPost.save();
 
         res.status(201).json(newPost);
@@ -64,13 +62,30 @@ export const deletePost = async(req,res) => {
 export const likePost = async(req,res) => {
     const { id } = req.params;
 
+    if(!req.userId)
+    {
+        return res.json({ message: "Unauthenticated" });
+    }
+
     if(!mongoose.Types.ObjectId.isValid(id))
     {
         return res.status(404).send('No post with that id');
     }
 
+    //finding the post with that postID
     const post = await PostMessage.findById(id);
-    const updatedPost = await PostMessage.findByIdAndUpdate(id, { likeCount: post.likeCount + 1 }, { new: true });
+
+    //from all the likes on that post,,we are finding the one for the current user
+    const index = post.likes.findIndex((id) => id === String(req.userId) );
+
+    //if no such like exists ,means the user hasn't liked it earlier -- like is added
+    //else like is removed
+    if(index === -1) {
+        post.likes.push(req.userId);
+    } else {
+        post.likes = post.likes.filter((id) => id !== String(req.userId) );
+    }
+    const updatedPost = await PostMessage.findByIdAndUpdate(id, post, { new: true });
 
     res.json(updatedPost);
 }
