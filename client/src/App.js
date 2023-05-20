@@ -1,5 +1,5 @@
 //files imported -- posts.js and form.js from components , getPosts method from /actions/posts
-import React from "react";
+import React from 'react';
 import { Container } from '@material-ui/core';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 

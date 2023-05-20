@@ -1,17 +1,12 @@
 //files imported -- createPost method from action/posts.js
 //form component
 import React, { useState, useEffect } from 'react';
-
-import { TextField, Button, Typography, Paper } from '@material-ui/core';
-
 import { useDispatch, useSelector } from 'react-redux';
+import { TextField, Button, Typography, Paper } from '@material-ui/core';
 
 import FileBase from 'react-file-base64';
 import useStyles from './styles';
 import { createPost, updatePost } from '../../actions/posts';
-//import { updatePost } from '../../../../server/controllers/posts';
-
-
 
 const Form = ({ currentId, setCurrentId }) =>{
     //initializing and managing the state object postData using useState
@@ -23,13 +18,14 @@ const Form = ({ currentId, setCurrentId }) =>{
         selectedFile: ''
     });
     
+    //finding the particular post state with id same as current id from all the posts in the state -- default value is null
     const post = useSelector((state) => currentId ? state.posts.find((p) => p._id === currentId): null);
+
     const classes = useStyles();
-    //dispatch function is accessed
     const dispatch = useDispatch();
-
     const user = JSON.parse(localStorage.getItem('profile'));
-
+    
+    //whenever the selected post state changes,,, setPostData is called and populates the form field with the value relative to curentId
     useEffect(() => {
         if(post) setPostData(post);
     }, [post])
@@ -45,16 +41,7 @@ const Form = ({ currentId, setCurrentId }) =>{
         }
         clear();
     };
-
-    if(!user?.result?.name) {
-        return (
-            <Paper className={classes.paper} >
-                <Typography variant="h6" align="center" >
-                    Please Sign In to create your own memories and like other's memories
-                </Typography>
-            </Paper>
-        );
-    }
+    
     //to clear the response in the create post form
     const clear =() => {
         setCurrentId(null);
@@ -66,10 +53,21 @@ const Form = ({ currentId, setCurrentId }) =>{
         });
     };
 
+    //if the user is logged in ,,he can't fill the form to create a post-- so render this component
+    if(!user?.result?.name) {
+        return (
+            <Paper className={classes.paper} >
+                <Typography variant="h6" align="center" >
+                    Please Sign In to create your own memories and like other's memories.
+                </Typography>
+            </Paper>
+        );
+    } 
+
     return(
         <Paper className={classes.paper}>
             <form autoComplete="off" noValidate className={`${classes.root} ${classes.form}`} onSubmit={handleSubmit}> 
-                <Typography variant="h6">{currentId ? 'Editing' : 'Creating' } a Memory</Typography>
+            <Typography variant="h6">{currentId ? `Editing "${post.title}"` : 'Creating a Memory'}</Typography>
                  <TextField
                  name="title" 
                  variant="outlined" 
@@ -83,6 +81,8 @@ const Form = ({ currentId, setCurrentId }) =>{
                  variant="outlined" 
                  label="Message" 
                  fullWidth 
+                 multiline
+                 minRows={4}
                  value={postData.message}
                  onChange={(e) => setPostData({ ...postData, message: e.target.value })}
                  />

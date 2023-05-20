@@ -17,13 +17,11 @@ export const getPosts = async (req,res) => {
 
 //this method is for creating a new post
 export const createPost = async (req,res) => {
-    //saving the request in post
+    
     const post = req.body;
-    //creating the new post by adding to data base
     const newPost = new PostMessage({ ...post, creator: req.userId, createdAt: new Date().toISOString() });
 
     try {
-        //saving the post
         await newPost.save();
 
         res.status(201).json(newPost);
@@ -36,7 +34,6 @@ export const createPost = async (req,res) => {
 //for updating post
 export const updatePost = async (req,res) => {
     const { id: _id } = req.params;
-    //request is coming from frontend
     const post = req.body;
 
     if(!mongoose.Types.ObjectId.isValid(_id))
@@ -76,10 +73,14 @@ export const likePost = async(req,res) => {
         return res.status(404).send('No post with that id');
     }
 
+    //finding the post with that postID
     const post = await PostMessage.findById(id);
 
+    //from all the likes on that post,,we are finding the one for the current user
     const index = post.likes.findIndex((id) => id === String(req.userId) );
 
+    //if no such like exists ,means the user hasn't liked it earlier -- like is added
+    //else like is removed
     if(index === -1) {
         post.likes.push(req.userId);
     } else {

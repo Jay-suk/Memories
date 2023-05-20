@@ -29,7 +29,7 @@ export const signin = async (req, res) => {
 
         //if existing user and password correct
 
-        //creating token
+        //creating token with secret key and expiry time of the token
         const token = jwt.sign({ email: existingUser.email, id: existingUser._id }, 'test' ,{ expiresIn: "1h" } );
 
         res.status(200).json({ result: existingUser, token });
