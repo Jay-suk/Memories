@@ -10,12 +10,15 @@ import useStyles from './styles';
 //form App
 const Posts= ({ setCurrentId }) => {
     //all the posts are selected from the state
-    const { posts } = useSelector((state) => state.posts);
+    const { posts, isLoading } = useSelector((state) => state.posts);
     const classes = useStyles();
+
+    if(!posts.length && !isLoading )
+        return 'No posts';
 
     //looping through all the posts and rendering a grid component which contains the Post component ,,also passing the {post,setCurrentId} as prop
     return(
-        !posts?.length ? <CircularProgress /> : (
+        isLoading ? <CircularProgress /> : (
             <Grid className={classes.container} container alignItems="stretch" spacing={3}>
                 {posts.map((post) => (
                     <Grid key={post._id} item xs={12} sm={12} md={6} lg={3}>

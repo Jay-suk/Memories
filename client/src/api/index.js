@@ -22,6 +22,9 @@ export const fetchPostsBySearch = (searchQuery) =>
         `/posts/search?searchQuery=${searchQuery.search || 'none'}&tags=${searchQuery.tags}`
     );
 
+//fetching a single post
+export const fetchPost = (id) => API.get(`/posts/${id}`);
+
 //create Post
 export const createPost = (newPost) => API.post('/posts', newPost);
 

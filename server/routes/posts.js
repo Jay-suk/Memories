@@ -1,5 +1,5 @@
 import express from 'express';
-import { getPosts, getPostsBySearch , createPost, updatePost, deletePost, likePost } from '../controllers/posts.js';
+import { getPosts, getPost, getPostsBySearch , createPost, updatePost, deletePost, likePost } from '../controllers/posts.js';
 
 //middleware
 import auth from '../middleware/auth.js';
@@ -16,6 +16,9 @@ router.get('/', getPosts);
 
 //getPostsBySearch -- to get the post by search
 router.get('/search', getPostsBySearch);
+
+//getPost -- to get a single post
+router.get('/:id',getPost);
 
 //createPost -- to create a new Post
 router.post('/', auth, createPost);
