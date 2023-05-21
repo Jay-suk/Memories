@@ -10,15 +10,15 @@ import useStyles from './styles';
 //form App
 const Posts= ({ setCurrentId }) => {
     //all the posts are selected from the state
-    const posts = useSelector((state) => state.posts);
+    const { posts } = useSelector((state) => state.posts);
     const classes = useStyles();
 
     //looping through all the posts and rendering a grid component which contains the Post component ,,also passing the {post,setCurrentId} as prop
     return(
-        !posts.length ? <CircularProgress /> : (
+        !posts?.length ? <CircularProgress /> : (
             <Grid className={classes.container} container alignItems="stretch" spacing={3}>
                 {posts.map((post) => (
-                    <Grid key={post._id} item xs={12} sm={12} md={6}>
+                    <Grid key={post._id} item xs={12} sm={12} md={6} lg={3}>
                         <Post post={post} setCurrentId={setCurrentId} />
                     </Grid>
                 ))}

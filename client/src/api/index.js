@@ -13,19 +13,25 @@ API.interceptors.request.use((req) => {
     return req;
 });
 
-//function to send a get request to the url to retrieve data and return the response
-export const fetchPosts = () => API.get('/posts');
-//takes newPost as argument and sends a post request to the url
-// with newPost as request and returns the response
+//fetch Posts
+export const fetchPosts = (page) => API.get(`/posts?page=${page}`);
+
+//fetchPosts by Search
+export const fetchPostsBySearch = (searchQuery) => 
+    API.get(
+        `/posts/search?searchQuery=${searchQuery.search || 'none'}&tags=${searchQuery.tags}`
+    );
+
+//create Post
 export const createPost = (newPost) => API.post('/posts', newPost);
 
-//updatePost
+//update Post
 export const updatePost = (id, updatedPost) => API.patch(`/posts/${id}`, updatedPost);
 
 //delete post
 export const deletePost = (id) => API.delete(`/posts/${id}`);
 
-//likePost
+//like Post
 export const likePost = (id) => API.patch(`/posts/${id}/likePost`);
 
 //sign in

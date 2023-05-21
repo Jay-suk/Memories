@@ -1,5 +1,5 @@
 import express from 'express';
-import { getPosts, createPost, updatePost, deletePost, likePost } from '../controllers/posts.js';
+import { getPosts, getPostsBySearch , createPost, updatePost, deletePost, likePost } from '../controllers/posts.js';
 
 //middleware
 import auth from '../middleware/auth.js';
@@ -13,6 +13,9 @@ const router = express.Router();
 
 //getPosts -- to get all posts from data base
 router.get('/', getPosts);
+
+//getPostsBySearch -- to get the post by search
+router.get('/search', getPostsBySearch);
 
 //createPost -- to create a new Post
 router.post('/', auth, createPost);

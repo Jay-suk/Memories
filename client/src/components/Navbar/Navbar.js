@@ -6,7 +6,8 @@ import decode from 'jwt-decode';
 
 import useStyles from './styles';
 import { LOGOUT } from '../../constants/actionTypes';
-import memories from '../../images/memories.png';
+import memoriesText from '../../images/memories-Text.png';
+import memoriesLogo from '../../images/memories-Logo.png';
 
 const Navbar = () => {
     const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
@@ -39,27 +40,19 @@ const Navbar = () => {
 
     return (
         <AppBar className={classes.appBar} position="static" color="inherit">
-         {/*   <Link to="/" className={classes.brandContainer}>
-                <Box>
-                    <Typography className={classes.heading} alt="icon" height="45px" align="center">Memories</Typography>
-                </Box>
-                <img className={classes.image} src={memories} alt="logo" height="40px" />
-    </Link>*/}
-            <div className={classes.brandContainer}>
+         
+            <Link to="/" className={classes.brandContainer}>
                 {/* memories */}
-                <Typography 
-                    component={Link} 
-                    to="/" 
-                    className={classes.heading} 
-                    variant="h2" 
-                    align="center"
-                >
-                    Memories
-                </Typography>
+                <img src={memoriesText} alt="icon" height="45px" />
 
                 {/* logo */}
-                <img className={classes.image} src={memories} alt="icon" height="60" />
-            </div>
+                <img 
+                    className={classes.image} 
+                    src={memoriesLogo} 
+                    alt="icon" 
+                    height="40px" 
+                />
+            </Link>
 
             {/* if a user is logged in render avatar, user Name and logout button ,, else render signIn button */}
             <Toolbar className={classes.toolbar}>
