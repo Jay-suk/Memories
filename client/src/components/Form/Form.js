@@ -10,8 +10,7 @@ import useStyles from './styles';
 import { createPost, updatePost } from '../../actions/posts';
 
 const Form = ({ currentId, setCurrentId }) =>{
-    //initializing and managing the state object postData using useState
-    //setPostData -- to change the state--form(default values)
+    //form field
     const [postData, setPostData] = useState({
         title: '',
         message: '',
@@ -35,7 +34,8 @@ const Form = ({ currentId, setCurrentId }) =>{
     //when we click the submit button to create a new post
     const handleSubmit = async (e) => {
         e.preventDefault();
-
+        
+        //file must be uploaded for submit to happen
         if (!postData.selectedFile) {
             alert('Please select a file');
             return;

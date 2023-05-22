@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Container, Grow, Grid, Paper, AppBar, TextField, Button } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 import ChipInput from 'material-ui-chip-input';
 
-import { getPosts,getPostsBySearch } from '../../actions/posts';
+import { getPostsBySearch } from '../../actions/posts';
 import Pagination from '../Pagination';
 import Posts from '../Posts/Posts';
 import Form from '../Form/Form';
@@ -16,23 +16,19 @@ function useQuery() {
 }
 
 const Home = () => {
-
-    const dispatch = useDispatch();
-    const classes = useStyles();
-    const query = useQuery();
-    const navigate = useNavigate();
-    const page = query.get('page') || 1;
-    const searchQuery = query.get('searchQuery');
-    //console.log(page);
+  
     const [currentId, setCurrentId] = useState(null);
     const [search, setSearch] = useState('');
     const [tags, setTags] = useState([]);
 
-    /*dispatch(getPosts()) whenever there is a change in [dispatch](change in redux store)
-    useEffect( () => {
-        dispatch(getPosts());
-    }, [currentId, dispatch]);*/
+    const dispatch = useDispatch();
+    const classes = useStyles();
+    const navigate = useNavigate();
 
+    const query = useQuery();
+    const page = query.get('page') || 1;
+    const searchQuery = query.get('searchQuery');
+    
     const searchPost = () => {
       if(search.trim() || tags) {
         dispatch(getPostsBySearch({ search, tags: tags.join(',') }));
@@ -82,7 +78,7 @@ const Home = () => {
                   fullWidth
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
-                  onKeyPress={handleKeyPress}
+                  onKeyDown={handleKeyPress}
                 />
                 <ChipInput
                   styles={{ margin: "10px 0" }}
@@ -102,6 +98,7 @@ const Home = () => {
                 </Button>
               </AppBar>
 
+              {/* implement pagination only if we are not searching anything */}
               <Form currentId={currentId} setCurrentId={setCurrentId}/>
               {(!searchQuery && !tags.length) && (
                 <Paper elevation={6} className={classes.pagination} >

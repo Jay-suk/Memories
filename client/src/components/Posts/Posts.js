@@ -13,6 +13,7 @@ const Posts= ({ setCurrentId }) => {
     const { posts, isLoading } = useSelector((state) => state.posts);
     const classes = useStyles();
 
+    //if posts array empty and not loading -- means no post to show
     if(!posts.length && !isLoading )
         return 'No posts';
 
