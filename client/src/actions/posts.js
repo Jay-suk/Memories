@@ -1,19 +1,19 @@
 import { FETCH_ALL, FETCH_BY_SEARCH, FETCH_POST,CREATE, UPDATE, DELETE, LIKE, START_LOADING, END_LOADING } from '../constants/actionTypes';
-
-//import everything from actions as api
 import * as api from '../api/index.js';
 
 //Action Creators -- functions that return action
 //action is an object with type and a payload
-
-//asynchronous action creator
 
 
 export const getPost = (id) => async (dispatch) => {
     try {
         dispatch({ type:START_LOADING });
         const { data } = await api.fetchPost(id);
-        dispatch({ type: FETCH_POST, payload: data });
+
+        dispatch({ 
+            type: FETCH_POST, 
+            payload: {post: data} 
+        });
         dispatch({ type:END_LOADING });
     } catch (error) {
         console.log(error.message);
@@ -23,20 +23,21 @@ export const getPost = (id) => async (dispatch) => {
 export const getPosts = (page) => async (dispatch) => {
     try {
         dispatch({ type:START_LOADING });
-        const { data } = await api.fetchPosts(page);
-        dispatch({ type: FETCH_ALL, payload: data });
+        const { data: { data, currentPage, numberOfPages } } = await api.fetchPosts(page);
+
+        dispatch({ type: FETCH_ALL, payload: { data, currentPage, numberOfPages } });
         dispatch({ type:END_LOADING });
     } catch (error) {
         console.log(error.message);
     }
 };
 
-export const getPostBySearch = (searchQuery) => async (dispatch) => {
+export const getPostsBySearch = (searchQuery) => async (dispatch) => {
     try {
         dispatch({ type:START_LOADING });
-        const { data:{ data } } = await api.fetchPostsBySearch(searchQuery);
+        const { data: { data } } = await api.fetchPostsBySearch(searchQuery);
 
-        dispatch({ type: FETCH_BY_SEARCH, payload:  data  });
+        dispatch({ type: FETCH_BY_SEARCH, payload: { data }  });
         dispatch({ type:END_LOADING });
         // console.log(data);
     } catch (error) {
@@ -49,7 +50,9 @@ export const createPost = (post, navigate) => async (dispatch) => {
     try {
         dispatch({ type:START_LOADING });
         const { data } = await api.createPost(post);
+
         navigate(`/posts/${data._id}`);
+
         dispatch({ type: CREATE, payload: data });
         dispatch({ type:END_LOADING });
     } catch (error) {

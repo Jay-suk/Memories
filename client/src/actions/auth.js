@@ -1,6 +1,4 @@
 import { AUTH } from '../constants/actionTypes';
-
-//import everything from actions as api
 import * as api from '../api/index.js';
 
 //signIn and signUp actions for manual login using jwt

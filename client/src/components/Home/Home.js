@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 import ChipInput from 'material-ui-chip-input';
 
-import { getPosts,getPostBySearch } from '../../actions/posts';
+import { getPosts,getPostsBySearch } from '../../actions/posts';
 import Pagination from '../Pagination';
 import Posts from '../Posts/Posts';
 import Form from '../Form/Form';
@@ -35,7 +35,7 @@ const Home = () => {
 
     const searchPost = () => {
       if(search.trim() || tags) {
-        dispatch(getPostBySearch({ search, tags: tags.join(',') }));
+        dispatch(getPostsBySearch({ search, tags: tags.join(',') }));
         navigate(
           `/posts/search?searchQuery=${search || 'none'}&tags=${tags.join(',')}`
         );

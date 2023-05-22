@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
 import { useParams, useNavigate } from 'react-router-dom';
 import useStyles from './styles';
-import { getPost, getPostBySearch } from '../../actions/posts';
+import { getPost, getPostsBySearch } from '../../actions/posts';
 
 const PostDetails = () => {
 
@@ -20,7 +20,7 @@ const PostDetails = () => {
 
     useEffect(() => {
       if (post) {
-        dispatch(getPostBySearch({ search: 'none', tags: post?.tags.join(',') }));
+        dispatch(getPostsBySearch({ search: 'none', tags: post?.tags.join(',') }));
       }
     }, [post]);
 
@@ -58,7 +58,7 @@ const PostDetails = () => {
           <img className={classes.media} src={post.selectedFile || 'https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png'} alt={post.title} />
         </div>
       </div>
-      {!recommendedPosts.length && (
+      {!!recommendedPosts.length && (
         <div className={classes.section}>
           <Typography gutterBottom variant="h5">You might also like:</Typography>
           <Divider />
@@ -69,7 +69,7 @@ const PostDetails = () => {
                 <Typography gutterBottom variant="subtitle2">{name}</Typography>
                 <Typography gutterBottom variant="subtitle2">{message}</Typography>
                 <Typography gutterBottom variant="subtitle1">Likes: {likes.length}</Typography>
-                <img src={selectedFile} width="200px" />
+                <img src={selectedFile} width="200px" alt={title}/>
               </div>
             ))}
           </div>
