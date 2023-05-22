@@ -4,9 +4,12 @@ export default makeStyles((theme) => ({
   media: {
     borderRadius: '20px',
     objectFit: 'cover',
-    width: '100%',
+    width: '50vw',
+    height: '100%',
     maxHeight: '600px',
-
+    [theme.breakpoints.down('sm')]: {
+      width: '100%', // Adjust the width to 100% for smaller screens
+    },
   },
   card: {
     display: 'flex',
@@ -34,6 +37,11 @@ export default makeStyles((theme) => ({
     },
   },
   loadingPaper: {
-    display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '20px', borderRadius: '15px', height: '39vh',
+    display: 'flex',
+    justifyContent: 'center', 
+    alignItems: 'center', 
+    padding: '20px', 
+    borderRadius: '15px', 
+    height: '39vh',
   },
 }));

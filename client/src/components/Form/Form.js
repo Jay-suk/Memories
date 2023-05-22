@@ -35,6 +35,11 @@ const Form = ({ currentId, setCurrentId }) =>{
     //when we click the submit button to create a new post
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        if (!postData.selectedFile) {
+            alert('Please select a file');
+            return;
+          }
         
         //if id exists (not null) update else create
         if(currentId){
@@ -101,7 +106,7 @@ const Form = ({ currentId, setCurrentId }) =>{
                     <FileBase
                         type="file"
                         multiple={false}
-                        onDone={({base64}) => setPostData({ ...postData, selectedFile: base64 }) }
+                        onDone={({base64}) => setPostData({ ...postData, selectedFile: base64 })}
                     />
                  </div>
 

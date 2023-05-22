@@ -46,7 +46,7 @@ const Post= ({ post, setCurrentId }) =>{
             <ButtonBase 
                 component="span" 
                 name="test" 
-                className={classes.cardActions} 
+                className={classes.cardAction} 
                 onClick={openPost}
             >
                 {/* image */}
@@ -61,14 +61,13 @@ const Post= ({ post, setCurrentId }) =>{
                     <Typography variant="h6"> {post.name} </Typography>
                     <Typography variant="body2"> {moment(post.createdAt).fromNow()} </Typography>
                 </div>
-            </ButtonBase>
 
             {/* edit button -- render only if the user and post creator are same */}
             {(user?.result?.sub === post?.creator || user?.result?._id === post?.creator) && (  
                 <div className={classes.overlay2} name="edit">
                     <Button
                         onClick={(e) => {
-                            //e.stopPropagation();
+                            e.stopPropagation();
                             setCurrentId(post._id);
                         }}
                         style={{ color: 'white' }}
@@ -93,9 +92,11 @@ const Post= ({ post, setCurrentId }) =>{
 
             {/* message */}
             <CardContent>
-                <Typography variant="body2" color="textSecondary" component="p">{post.message}</Typography>
+                <Typography variant="body2" color="textSecondary" component="p">
+                    {post.message.split(' ').splice(0, 20).join(' ')}...
+                </Typography>
             </CardContent>
-           {/* </ButtonBase>*/}
+           </ButtonBase>
             
 
             <CardActions className={classes.cardActions}>
@@ -118,6 +119,6 @@ const Post= ({ post, setCurrentId }) =>{
             </CardActions>
         </Card>
     );
-}
+};
 
 export default Post;
