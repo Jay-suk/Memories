@@ -1,8 +1,7 @@
 //to make http requests to the backend server
 import axios from 'axios';
 
-/*this url points to the backend route
-const url = 'http://localhost:5000/posts';*/
+//this url points to the backend route
 
 const API = axios.create( {baseURL : 'http://localhost:5000'} );
 

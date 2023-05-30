@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from "react-router-dom";
-import { Avatar, Button, Paper, Grid, Typography, Container } from '@material-ui/core';
+import { Avatar, Button, Paper, Grid, Typography, Container, CircularProgress } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { GoogleLogin } from '@react-oauth/google';
 import jwtDecode from 'jwt-decode';
 
 import useStyles from './styles';
 import Input from './input';
-import { AUTH } from '../../constants/actionTypes';
+import { AUTH, HIDE_ERROR } from '../../constants/actionTypes';
 import { signin, signup } from '../../actions/auth';
 
 const initialState = {
@@ -26,6 +26,8 @@ const Auth = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [isSignup, setIsSignUp] = useState(false);
     const [formData, setFormData] = useState(initialState);
+    const { isLoading, showAlert, message } = useSelector((store) => store.auth);
+
 
     //toggles the showPassword icon
     const handleShowPassword = () => setShowPassword((prevShowPassword) => !prevShowPassword );
@@ -41,8 +43,16 @@ const Auth = () => {
         }
     };
 
+    useEffect(() => {
+        return () => {
+          // Cleanup function to hide the alert when the component unmounts or navigates to a different page
+          dispatch({type: HIDE_ERROR});
+        };
+      }, [dispatch, navigate]);
+
     //changes in any field of the form is handled here by updating the state
     const handleChange = (e) => {
+        e.preventDefault();
         setFormData({ ...formData, [e.target.name] : e.target.value });
     };
 
@@ -73,8 +83,13 @@ const Auth = () => {
         alert("Google Sign In was unsuccessful");
     };
 
-    return (
+    return isLoading ? (
+        <Container className={classes.loading}>
+          <CircularProgress size="5rem" />
+        </Container>
+      ) : (
         <Container component="main" maxWidth="xs">
+            {showAlert && <div className="alert alert-danger">{message}</div>}
             <Paper className={classes.paper} elevation={6} > 
 
                 {/* lock icon */}
@@ -98,7 +113,8 @@ const Auth = () => {
                                         name="firstName"
                                         label="First Name" 
                                         handleChange={handleChange} 
-                                        autoFocus half 
+                                        autoFocus
+                                        half 
                                     />
                                     <Input 
                                         name="lastName" 
@@ -156,7 +172,9 @@ const Auth = () => {
                     <Grid container justifyContent="center">
                         <Grid item>
                             <Button onClick={switchMode} >
-                                { isSignup ? 'Already have an account? Sign In' : "Don't have an account? Sign Up" }
+                                { isSignup 
+                                    ? 'Already have an account? Sign In' 
+                                    : "Don't have an account? Sign Up" }
                             </Button>
                         </Grid>
                     </Grid>
