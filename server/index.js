@@ -19,8 +19,6 @@ app.use(cors());
 app.use('/posts', postRoutes);
 app.use('/user', userRoutes);
 
-//link to connect to database
-//const CONNECTION_URL = 'mongodb+srv://jaykumargupta2307:Ggambhir83@cluster0.zap9js3.mongodb.net/?retryWrites=true&w=majority';
 
 app.get('/', (req,res) => {
   res.send('Hello to Memories API');
@@ -40,5 +38,3 @@ mongoose.connect(process.env.CONNECTION_URL, {
   )
   .catch((error) => console.log(error.message));
 
-//to avoid some warnings in the console
-//mongoose.set('useFindAndModify', false);
