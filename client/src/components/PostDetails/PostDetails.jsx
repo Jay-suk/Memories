@@ -62,7 +62,7 @@ const PostDetails = () => {
 
             <Typography 
               gutterBottom 
-              variant="body1 overline" 
+              variant="body1" 
               component="p"
             >
               {post.message}
