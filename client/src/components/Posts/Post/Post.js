@@ -1,4 +1,3 @@
-//this component is for individual post
 import React, { useState } from 'react';
 import { Card, CardActions, CardContent, CardMedia, Button, Typography, ButtonBase } from '@material-ui/core';
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
@@ -12,7 +11,6 @@ import { useNavigate } from 'react-router-dom';
 import useStyles from './styles';
 import { deletePost, likePost } from '../../../actions/posts';
 
-//from Posts
 const Post= ({ post, setCurrentId }) =>{
     const classes = useStyles();
     const dispatch = useDispatch();

@@ -97,9 +97,9 @@ const Home = () => {
                   Search
                 </Button>
               </AppBar>
-
-              {/* implement pagination only if we are not searching anything */}
               <Form currentId={currentId} setCurrentId={setCurrentId}/>
+              
+              {/* implement pagination only if we are not searching anything */}
               {(!searchQuery && !tags.length) && (
                 <Paper elevation={6} className={classes.pagination} >
                 <Pagination page={page}/>

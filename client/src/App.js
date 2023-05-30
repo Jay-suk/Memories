@@ -1,4 +1,3 @@
-//files imported -- posts.js and form.js from components , getPosts method from /actions/posts
 import React from 'react';
 import { Container } from '@material-ui/core';
 import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
@@ -8,7 +7,6 @@ import Home from './components/Home/Home';
 import Auth from './components/Auth/Auth';
 import PostDetails from './components/PostDetails/PostDetails';
 
-//layout of our app with material-ui styling
 const App = () => {
 
   const user = JSON.parse(localStorage.getItem('profile'));
@@ -32,5 +30,4 @@ const App = () => {
   );
 };
 
-//exporting this component as default to index.js
 export default App;

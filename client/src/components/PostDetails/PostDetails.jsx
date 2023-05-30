@@ -51,21 +51,57 @@ const PostDetails = () => {
         <div className={classes.card}>
           <div className={classes.section}>
             <Typography variant="h3" component="h2">{post.title}</Typography>
-            <Typography gutterBottom variant="caption" color="textSecondary" component="h2">{post.tags.map((tag) => `#${tag} `)}</Typography>
-            <Typography gutterBottom variant="body1 overline" component="p">{post.message}</Typography>
-            <Typography variant="body2" style={{fontStyle: 'italic', color: '#F02136'}} >Created by: {post.name}</Typography>
+            <Typography 
+              gutterBottom 
+              variant="caption" 
+              color="textSecondary" 
+              component="h2"
+            >
+              {post.tags.map((tag) => `#${tag} `)}
+            </Typography>
+
+            <Typography 
+              gutterBottom 
+              variant="body1 overline" 
+              component="p"
+            >
+              {post.message}
+            </Typography>
+
+            <Typography 
+              variant="body2" 
+              style={{
+                fontStyle: 'italic', 
+                color: '#F02136',
+              }} 
+            >
+              Created by: {post.name}
+            </Typography>
+
             <Typography variant="caption" style={{fontStyle: 'italic'}}>{moment(post.createdAt).fromNow()}</Typography>
+
             <Divider style={{ margin: '20px 0' }} />
+
             <CommentSection post={post} />
+
             <Divider style={{ margin: '20px 0' }} />
           </div>
           <div className={classes.imageSection}>
             <div>
-              <img className={`${classes.thumbnail} ${classes.media}`} src={post.selectedFile || 'https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png'} alt={post.title} onClick={openPopup} />
+              <img 
+                className={`${classes.thumbnail} ${classes.media}`} 
+                src={post.selectedFile || 'https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png'} 
+                alt={post.title} 
+                onClick={openPopup} 
+              />
               {isOpen && (
                 <div className={classes.popup}>
                   <span className={classes.closeButton} onClick={closePopup}>&times;</span>
-                  <img className={classes.popupImage} src={post.selectedFile || 'https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png'} alt="Popup Image" />
+                  <img 
+                    className={classes.popupImage} 
+                    src={post.selectedFile || 'https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png'} 
+                    alt="Popup Image" 
+                  />
                 </div>
               )}
             </div>  

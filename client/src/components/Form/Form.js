@@ -39,7 +39,7 @@ const Form = ({ currentId, setCurrentId }) =>{
         if (!postData.selectedFile) {
             alert('Please select a file');
             return;
-          }
+        }
         
         //if id exists (not null) update else create
         if(currentId){
@@ -119,8 +119,25 @@ const Form = ({ currentId, setCurrentId }) =>{
                     />
                  </div>
 
-                 <Button className={classes.buttonSubmit} variant="contained" color="primary" size="large" type="submit" fullWidth>Submit</Button>
-                 <Button variant="contained" color="secondary" size="small" onClick={clear} fullWidth>Clear</Button>
+                 <Button 
+                    className={classes.buttonSubmit} 
+                    variant="contained" 
+                    color="primary" 
+                    size="large" 
+                    type="submit" 
+                    fullWidth
+                >
+                    Submit
+                </Button>
+                 <Button 
+                    variant="contained" 
+                    color="secondary" 
+                    size="small" 
+                    onClick={clear} 
+                    fullWidth
+                >
+                    Clear
+                </Button>
             </form>
         </Paper>
     );

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { AppBar, Avatar, Button, Toolbar, Typography, Box } from '@material-ui/core';
+import { AppBar, Avatar, Button, Toolbar, Typography } from '@material-ui/core';
 import decode from 'jwt-decode';
 
 import useStyles from './styles';
@@ -17,13 +17,12 @@ const Navbar = () => {
     const classes = useStyles();
 
     const logout = () => {
-        dispatch({ type: LOGOUT});
+        dispatch({ type: LOGOUT });
         navigate('/auth');
         setUser(null);
     };
 
-    //console.log(user);
-
+    console.log(user);
     useEffect(() => {
         const token = user?.token;
 
@@ -43,7 +42,11 @@ const Navbar = () => {
          
             <Link to="/" className={classes.brandContainer}>
                 {/* memories */}
-                <img src={memoriesText} alt="icon" height="45px" />
+                <img 
+                    src={memoriesText} 
+                    alt="icon" 
+                    height="45px" 
+                />
 
                 {/* logo */}
                 <img 

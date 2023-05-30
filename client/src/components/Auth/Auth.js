@@ -8,7 +8,6 @@ import jwtDecode from 'jwt-decode';
 
 import useStyles from './styles';
 import Input from './input';
-//import Icon from './icon';
 import { AUTH } from '../../constants/actionTypes';
 import { signin, signup } from '../../actions/auth';
 
@@ -88,7 +87,7 @@ const Auth = () => {
                     {isSignup ? 'Sign Up' : 'Sign In'}
                 </Typography>
 
-                {/* render th signUP or signIn form depending on the isSignUp value */}
+                {/* render the signUP or signIn form depending on the isSignUp value */}
                 {/* firstName, lastName and confirm password are only required if we are signing up */}
                 <form className={classes.form} onSubmit={handleSubmit} >
                     <Grid container spacing={2} >

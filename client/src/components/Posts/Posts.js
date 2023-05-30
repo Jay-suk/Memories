@@ -1,5 +1,3 @@
-//files imported -- post method form /post/post.js
-//this component is for displaying all posts
 import React from 'react';
 import { Grid, CircularProgress } from '@material-ui/core';
 import { useSelector } from 'react-redux';
@@ -7,9 +5,7 @@ import { useSelector } from 'react-redux';
 import Post from './Post/Post'
 import useStyles from './styles';
 
-//form App
 const Posts= ({ setCurrentId }) => {
-    //all the posts are selected from the state
     const { posts, isLoading } = useSelector((state) => state.posts);
     const classes = useStyles();
 
