@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Paper, Typography, CircularProgress, Divider } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
@@ -9,6 +9,8 @@ import CommentSection from './CommentSection';
 const PostDetails = () => {
 
     const { post, posts, isLoading } = useSelector((state) => state.posts);
+    const [isOpen, setIsOpen] = useState(false);
+
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const classes = useStyles();
@@ -28,6 +30,10 @@ const PostDetails = () => {
       return null;
 
     const openPost = (_id) => navigate(`/posts/${_id}`);
+
+    const openPopup = () => setIsOpen(true);
+  
+    const closePopup = () => setIsOpen(false);
     
     if (isLoading) {
       return (
@@ -56,7 +62,15 @@ const PostDetails = () => {
             <Divider style={{ margin: '20px 0' }} />
           </div>
           <div className={classes.imageSection}>
-            <img className={classes.media} src={post.selectedFile || 'https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png'} alt={post.title} />
+            <div>
+              <img className={`${classes.thumbnail} ${classes.media}`} src={post.selectedFile || 'https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png'} alt={post.title} onClick={openPopup} />
+              {isOpen && (
+                <div className={classes.popup}>
+                  <span className={classes.closeButton} onClick={closePopup}>&times;</span>
+                  <img className={classes.popupImage} src={post.selectedFile || 'https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png'} alt="Popup Image" />
+                </div>
+              )}
+            </div>  
           </div>
         </div>
         {!!recommendedPosts.length && (
