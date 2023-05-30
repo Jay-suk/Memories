@@ -50,9 +50,15 @@ import { makeStyles } from '@material-ui/core/styles';
 export default makeStyles((theme) => ({
   media: {
     borderRadius: '20px',
-    objectFit: 'cover',
-    width: '100%',
+    objectFit: 'contain',
+    width: '40vw',
+    height: '100%',
     maxHeight: '600px',
+    [theme.breakpoints.down('sm')]: {
+      width: '100%', // Adjust the width to 100% for smaller screens
+    },
+    /*width: '100%',
+    maxHeight: '600px',*/
 
   },
   card: {
@@ -91,10 +97,23 @@ export default makeStyles((theme) => ({
   commentsOuterContainer: {
     display: 'flex',
     justifyContent: 'space-between',
+    [theme.breakpoints.down("sm")]: {
+      flexDirection: "column",
+    },
   },
   commentsInnerContainer: {
     height: '200px',
     overflowY: 'auto',
     marginRight: '30px',
+  },
+  recImage: {
+    objectFit: 'contain',
+    display: 'flex',
+    alignItems: 'center', // Center vertically
+    justifyContent: 'center', // Center horizontally
+    marginLeft: '20px',
+    [theme.breakpoints.down('sm')]: {
+      marginLeft: 0,
+    },
   },
 }));
