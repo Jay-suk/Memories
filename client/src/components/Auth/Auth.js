@@ -57,7 +57,7 @@ const Auth = () => {
     //when Google login is succesful - dedode the credential and extract the token from it
     //dispatch the AUTH and navigate to the home page
     const googleSuccess = async (res) => {
-        //console.log(res);
+        
         const result = jwtDecode(res?.credential);
         const token = res.credential;
 
@@ -76,7 +76,7 @@ const Auth = () => {
 
     return (
         <Container component="main" maxWidth="xs">
-            <Paper className={classes.paper} elevation={3} > 
+            <Paper className={classes.paper} elevation={6} > 
 
                 {/* lock icon */}
                 <Avatar className={classes.avatar} >

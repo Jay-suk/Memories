@@ -16,7 +16,7 @@ export const getPost = (id) => async (dispatch) => {
         });
         dispatch({ type:END_LOADING });
     } catch (error) {
-        console.log(error.message);
+        console.log(error);
     }
 };
 
@@ -28,7 +28,7 @@ export const getPosts = (page) => async (dispatch) => {
         dispatch({ type: FETCH_ALL, payload: { data, currentPage, numberOfPages } });
         dispatch({ type:END_LOADING });
     } catch (error) {
-        console.log(error.message);
+        console.log(error);
     }
 };
 
@@ -39,9 +39,8 @@ export const getPostsBySearch = (searchQuery) => async (dispatch) => {
 
         dispatch({ type: FETCH_BY_SEARCH, payload: { data }  });
         dispatch({ type:END_LOADING });
-        // console.log(data);
     } catch (error) {
-      console.log(error.message);
+      console.log(error);
     }
   };
   
@@ -51,9 +50,9 @@ export const createPost = (post, navigate) => async (dispatch) => {
         dispatch({ type:START_LOADING });
         const { data } = await api.createPost(post);
 
+        dispatch({ type: CREATE, payload: data });
         navigate(`/posts/${data._id}`);
 
-        dispatch({ type: CREATE, payload: data });
         dispatch({ type:END_LOADING });
     } catch (error) {
         console.log(error);

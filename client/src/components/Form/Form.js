@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { TextField, Button, Typography, Paper } from '@material-ui/core';
-
+import ChipInput from 'material-ui-chip-input';
 import { useNavigate } from 'react-router-dom';
 import FileBase from 'react-file-base64';
 import useStyles from './styles';
@@ -14,7 +14,7 @@ const Form = ({ currentId, setCurrentId }) =>{
     const [postData, setPostData] = useState({
         title: '',
         message: '',
-        tags: '',
+        tags: [],
         selectedFile: ''
     });
     
@@ -56,7 +56,7 @@ const Form = ({ currentId, setCurrentId }) =>{
         setPostData({
             title: '',
             message: '',
-            tags: '',
+            tags: [],
             selectedFile: ''
         });
     };
@@ -71,7 +71,13 @@ const Form = ({ currentId, setCurrentId }) =>{
             </Paper>
         );
     } 
-
+    const handleAddChip = (tag) => {
+        setPostData({ ...postData, tags: [...postData.tags, tag] });
+      };
+    
+      const handleDeleteChip = (chipToDelete) => {
+        setPostData({ ...postData, tags: postData.tags.filter((tag) => tag !== chipToDelete) });
+      };
     return(
         <Paper className={classes.paper} elevation={6} >
             <form autoComplete="off" noValidate className={`${classes.root} ${classes.form}`} onSubmit={handleSubmit}> 
@@ -94,14 +100,17 @@ const Form = ({ currentId, setCurrentId }) =>{
                  value={postData.message}
                  onChange={(e) => setPostData({ ...postData, message: e.target.value })}
                  />
-                 <TextField
-                 name="tags" 
-                 variant="outlined" 
-                 label="Tags" 
-                 fullWidth 
-                 value={postData.tags}
-                 onChange={(e) => setPostData({ ...postData, tags: e.target.value.split(',') })}
-                 />
+                 <div style={{ padding: '5px 0', width: '94%' }}>
+          <ChipInput
+            name="tags"
+            variant="outlined"
+            label="Tags"
+            fullWidth
+            value={postData.tags}
+            onAdd={(chip) => handleAddChip(chip)}
+            onDelete={(chip) => handleDeleteChip(chip)}
+          />
+        </div>
                  <div className={classes.fileInput}>
                     <FileBase
                         type="file"
