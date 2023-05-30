@@ -51,12 +51,10 @@ const PostDetails = () => {
         <div className={classes.card}>
           <div className={classes.section}>
             <Typography variant="h3" component="h2">{post.title}</Typography>
-            <Typography gutterBottom variant="h6" color="textSecondary" component="h2">{post.tags.map((tag) => `#${tag} `)}</Typography>
-            <Typography gutterBottom variant="body1" component="p">{post.message}</Typography>
-            <Typography variant="h6">Created by: {post.name}</Typography>
-            <Typography variant="body1">{moment(post.createdAt).fromNow()}</Typography>
-            <Divider style={{ margin: '20px 0' }} />
-            <Typography variant="body1"><strong>Realtime Chat - coming soon!</strong></Typography>
+            <Typography gutterBottom variant="caption" color="textSecondary" component="h2">{post.tags.map((tag) => `#${tag} `)}</Typography>
+            <Typography gutterBottom variant="body1 overline" component="p">{post.message}</Typography>
+            <Typography variant="body2" style={{fontStyle: 'italic', color: '#F02136'}} >Created by: {post.name}</Typography>
+            <Typography variant="caption" style={{fontStyle: 'italic'}}>{moment(post.createdAt).fromNow()}</Typography>
             <Divider style={{ margin: '20px 0' }} />
             <CommentSection post={post} />
             <Divider style={{ margin: '20px 0' }} />
