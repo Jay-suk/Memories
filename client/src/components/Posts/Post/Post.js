@@ -70,7 +70,7 @@ const Post= ({ post, setCurrentId }) =>{
                     <Typography variant="h6"> {post.name} </Typography>
                     <Typography variant="body2"> {moment(post.createdAt).fromNow()} </Typography>
                 </div>
-
+            </ButtonBase>
             {/* edit button -- render only if the user and post creator are same */}
             {(user?.result?.sub === post?.creator || user?.result?._id === post?.creator) && (  
                 <div className={classes.overlay2} name="edit">
@@ -105,7 +105,7 @@ const Post= ({ post, setCurrentId }) =>{
                     {post.message.split(' ').splice(0, 20).join(' ')}...
                 </Typography>
             </CardContent>
-           </ButtonBase>
+           
             
 
             <CardActions className={classes.cardActions}>
@@ -122,7 +122,7 @@ const Post= ({ post, setCurrentId }) =>{
                         onClick={() => dispatch(deletePost(post._id)) }
                     >
                         <DeleteIcon fontSize="small"/>
-                        &nbsp; Delete
+                        &nbsp;Delete
                     </Button>
                 )}
             </CardActions>
