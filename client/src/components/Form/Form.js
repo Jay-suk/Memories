@@ -104,7 +104,7 @@ const Form = ({ currentId, setCurrentId }) =>{
           <ChipInput
             name="tags"
             variant="outlined"
-            label="Tags"
+            label="Tags - after each tag press enter"
             fullWidth
             value={postData.tags}
             onAdd={(chip) => handleAddChip(chip)}
